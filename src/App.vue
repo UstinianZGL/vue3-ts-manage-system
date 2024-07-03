@@ -1,27 +1,13 @@
 <template>
-  <login-page></login-page>
+  <router-view></router-view>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import LoginPage from './components/LoginPage.vue'
 
 export default defineComponent({
-  name: 'App',
-
-  components: {
-    LoginPage
-  }
+  name: 'App'
 })
 </script>
 
-<style lang="less">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="less"></style>

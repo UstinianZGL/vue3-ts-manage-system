@@ -1,0 +1,113 @@
+<template>
+  <div class="login-panel">
+    <h1 class="login-title">后台登录管理系统</h1>
+    <div class="el-tab-part">
+      <el-tabs type="border-card" class="el-tab-body" stretch>
+        <el-tab-pane>
+          <template #label>
+            <span class="custom-tabs-label">
+              <el-icon><Reading /></el-icon>
+              <span>账号登录</span>
+            </span>
+          </template>
+          <login-account></login-account>
+        </el-tab-pane>
+        <el-tab-pane>
+          <template #label>
+            <span class="custom-tabs-label">
+              <el-icon><Phone /></el-icon>
+              <span>手机登录</span>
+            </span>
+          </template>
+          <login-phone></login-phone>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
+    <div class="account-control-body">
+      <div class="account-control">
+        <el-checkbox v-model="isKeepPassword">记住密码</el-checkbox>
+        <el-link type="primary">忘记密码</el-link>
+      </div>
+    </div>
+    <div class="submit-button-body">
+      <el-button
+        type="primary"
+        size="large"
+        @click="userSubmit"
+        class="submit-button"
+        >立即登录</el-button
+      >
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import LoginAccount from './LoginAccount.vue'
+import LoginPhone from './LoginPhone.vue'
+
+export default defineComponent({
+  name: 'LoginPanel',
+  components: {
+    LoginAccount,
+    LoginPhone
+  },
+  setup() {
+    let isKeepPassword = ref(false)
+
+    const userSubmit = () => {
+      console.log('用户点击了提交')
+    }
+
+    return {
+      isKeepPassword,
+      userSubmit
+    }
+  }
+})
+</script>
+
+<style lang="less">
+.login-title {
+  width: 100%;
+  text-align: center;
+  line-height: 150px;
+}
+
+.el-tab-part {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.el-tab-body {
+  width: 400px;
+  height: 200px;
+}
+
+.account-control-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.account-control {
+  width: 400px;
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.submit-button-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.submit-button-body .submit-button {
+  color: #f7f0f0;
+  background-color: #7667a7;
+  width: 120px;
+  padding: 5px 2px;
+}
+</style>
