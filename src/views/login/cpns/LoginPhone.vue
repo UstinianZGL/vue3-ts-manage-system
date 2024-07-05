@@ -1,12 +1,12 @@
 <template>
   <div class="login-phone">
-    <el-form style="max-width: 460px" :model="userMassage">
-      <el-form-item label="手机号" required>
-        <el-input v-model="userMassage.phoneNumber" />
+    <el-form style="max-width: 460px" :model="userMassage" :rules="phoneRule">
+      <el-form-item label="手机号" required prop="phoneNumber">
+        <el-input v-model="userMassage.phoneNumber" type="text" />
       </el-form-item>
-      <el-form-item label="验证码" required>
+      <el-form-item label="验证码" required prop="password">
         <div class="verify-body">
-          <el-input v-model="userMassage.password" />
+          <el-input v-model="userMassage.password" type="text" />
           <el-button
             type="primary"
             color="#626aef"
@@ -22,6 +22,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
+import { phoneRule } from '../config/phoneConfig'
 
 export default defineComponent({
   name: 'LoginPhone',
@@ -32,7 +33,8 @@ export default defineComponent({
     })
 
     return {
-      userMassage
+      userMassage,
+      phoneRule
     }
   }
 })

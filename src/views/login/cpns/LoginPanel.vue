@@ -2,24 +2,29 @@
   <div class="login-panel">
     <h1 class="login-title">后台登录管理系统</h1>
     <div class="el-tab-part">
-      <el-tabs type="border-card" class="el-tab-body" stretch>
-        <el-tab-pane>
+      <el-tabs
+        type="border-card"
+        class="el-tab-body"
+        stretch
+        v-model="userSelectTab"
+      >
+        <el-tab-pane name="account">
           <template #label>
             <span class="custom-tabs-label">
               <el-icon><Reading /></el-icon>
               <span>账号登录</span>
             </span>
           </template>
-          <login-account></login-account>
+          <login-account ref="accountRef"></login-account>
         </el-tab-pane>
-        <el-tab-pane>
+        <el-tab-pane name="phone">
           <template #label>
             <span class="custom-tabs-label">
               <el-icon><Phone /></el-icon>
               <span>手机登录</span>
             </span>
           </template>
-          <login-phone></login-phone>
+          <login-phone ref="phoneRef"></login-phone>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -54,13 +59,22 @@ export default defineComponent({
   },
   setup() {
     let isKeepPassword = ref(false)
+    let userSelectTab = ref('account')
+    const accountRef = ref<InstanceType<typeof LoginAccount>>()
+    const phoneRef = ref<InstanceType<typeof LoginPhone>>()
 
     const userSubmit = () => {
       console.log('用户点击了提交')
+      if (userSelectTab.value == 'account') {
+        accountRef.value?.loginAction(isKeepPassword.value)
+      }
     }
 
     return {
       isKeepPassword,
+      userSelectTab,
+      accountRef,
+      phoneRef,
       userSubmit
     }
   }
