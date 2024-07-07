@@ -48,8 +48,10 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
+import { useStore } from 'vuex'
 import LoginAccount from './LoginAccount.vue'
 import LoginPhone from './LoginPhone.vue'
+import localCache from '@/utils/cache'
 
 export default defineComponent({
   name: 'LoginPanel',
@@ -58,13 +60,16 @@ export default defineComponent({
     LoginPhone
   },
   setup() {
-    let isKeepPassword = ref(false)
+    const store = useStore()
+
+    let isKeepPassword = ref(localCache.getCache('recordUserMass') ?? false)
     let userSelectTab = ref('account')
     const accountRef = ref<InstanceType<typeof LoginAccount>>()
     const phoneRef = ref<InstanceType<typeof LoginPhone>>()
 
     const userSubmit = () => {
       console.log('用户点击了提交')
+      localCache.setCache('recordUserMass', isKeepPassword.value)
       if (userSelectTab.value == 'account') {
         accountRef.value?.loginAction(isKeepPassword.value)
       }

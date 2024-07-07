@@ -4,8 +4,8 @@ import router from './router'
 import store from './store'
 import { globalRegister } from './global'
 import './assets/css/index.less'
+import { loadStoreLoginMassage } from '@/store/index'
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
-// import './service/axios_demo'
 
 const app = createApp(App)
 
@@ -13,6 +13,9 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 app.use(globalRegister)
+
+//获取用户的登录信息
+loadStoreLoginMassage()
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
   app.component(key, component)

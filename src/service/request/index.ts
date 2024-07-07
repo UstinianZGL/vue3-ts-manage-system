@@ -15,7 +15,9 @@ class LYRequest {
     //创建axios实例
     this.instance = axios.create(config)
 
-    config.headers?.common?.set('Access-Control-Allow-Origin', '*')
+    if (typeof config.headers?.set === 'function') {
+      config.headers.set('Access-Control-Allow-Origin', '*')
+    }
 
     //保存基本信息
     this.showLoading = config.showLoading ?? DEAFULT_LOADING

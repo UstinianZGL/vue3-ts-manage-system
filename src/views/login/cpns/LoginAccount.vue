@@ -22,22 +22,26 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
+import { useStore } from 'vuex'
 import { accountRule } from '../config/accountConfig'
 import { ElForm } from 'element-plus'
 import localCache from '@/utils/cache'
+import { ILoginAccount } from '@/service/login/type'
 
 export default defineComponent({
   name: 'LoginAccount',
   setup() {
+    const store = useStore()
+
     const userMassage = reactive({
-      account: '',
-      password: ''
+      account: localCache.getCache('userAccount') ?? '',
+      password: localCache.getCache('password') ?? ''
     })
 
     const formRef = ref<InstanceType<typeof ElForm>>()
 
     const loginAction = (isNeedStoreUserMassage: boolean) => {
-      console.log('手机号登录响应')
+      console.log('账号登录响应')
       //校验规则
       formRef.value?.validate((valid) => {
         if (valid) {
@@ -50,8 +54,15 @@ export default defineComponent({
             localCache.deleteCache('userAccount')
             localCache.deleteCache('password')
           }
+        } else {
+          window.alert('请输入正确格式的账号和密码')
         }
       })
+      const loginAccount: ILoginAccount = {
+        name: userMassage.account,
+        password: userMassage.password
+      }
+      store.dispatch('login/accountLoginAction', { ...loginAccount })
     }
 
     return {
