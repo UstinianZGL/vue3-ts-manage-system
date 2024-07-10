@@ -26,15 +26,20 @@
               v-for="(childItem, childIndex) in item.children"
               :key="childItem.id"
             >
-              <el-menu-item :index="childItem.id + ''">{{
-                childItem.name
-              }}</el-menu-item>
+              <el-menu-item
+                :index="childItem.id + ''"
+                @click="selectPartRoute(childItem)"
+                >{{ childItem.name }}</el-menu-item
+              >
             </template>
           </el-sub-menu>
         </template>
         <!-- 表示只存在二级目录 -->
         <template v-else-if="item.type == 2">
-          <el-menu-item :index="item.id + ''">
+          <el-menu-item
+            :index="item.id + ''"
+            @click="selectPartRoute(childItem)"
+          >
             <i :class="item.icon"></i>
             <span>{{ item.name }}</span>
           </el-menu-item>
@@ -47,6 +52,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from '@/store/index'
+import router from '@/router'
 
 export default defineComponent({
   props: {
@@ -58,9 +64,13 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const userMenu = computed(() => store.state.login.userMenu.data)
-    console.log(userMenu)
+    const selectPartRoute = (selectItem: any) => {
+      router.push(selectItem.url)
+    }
+
     return {
-      userMenu
+      userMenu,
+      selectPartRoute
     }
   }
 })

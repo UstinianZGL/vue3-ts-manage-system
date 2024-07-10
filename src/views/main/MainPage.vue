@@ -8,8 +8,11 @@
         <el-header>
           <nav-header @foldChange="dealFoldChange"></nav-header>
         </el-header>
-        <el-main>Main</el-main>
-        <el-footer>Footer</el-footer>
+        <el-main class="page-content">
+          <div class="page-info">
+            <router-view></router-view>
+          </div>
+        </el-main>
       </el-container>
     </el-container>
   </div>
@@ -41,6 +44,15 @@ export default defineComponent({
 .el-container {
   height: 100vh;
   width: 100vw;
+}
+
+.page-content {
+  height: calc(100% - 48px);
+
+  .page-info {
+    background-color: #fff;
+    border-radius: 5px;
+  }
 }
 
 .el-header,

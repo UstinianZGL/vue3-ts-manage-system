@@ -5,8 +5,6 @@ class LocalCache {
 
   getCache(key: string): any {
     const value = window.localStorage.getItem(key)
-    console.log(value)
-    console.log(typeof value)
     if (value && value != 'undefined') {
       return JSON.parse(value)
     }

@@ -8,7 +8,7 @@ import {
   requestUserInfoById,
   requestGetUserMenuByUserId
 } from '@/service/login/login'
-import { ca } from 'element-plus/es/locale'
+import { mapMenusToRoutes } from '@/utils/map-menu'
 
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -29,6 +29,11 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenu(state, userMenu: any) {
       state.userMenu = userMenu
+      //在这里注册动态路由
+      const routes = mapMenusToRoutes(userMenu.data)
+      routes.forEach((item) => {
+        router.addRoute('main', item)
+      })
     }
   },
   actions: {
@@ -60,12 +65,12 @@ const loginModule: Module<ILoginState, IRootState> = {
       commit('changeUserMenu', userMenu)
       //将用户菜单信息缓存到后台
       cache.setCache('userMenu', userMenu)
-
       //跳转到首页
       router.push('main')
     },
 
     loadLocalLogin({ commit }) {
+      console.log('调用loadLocalLogin')
       //获取用户的token
       const userToken = cache.getCache('token')
       if (userToken != 'undefined') {
@@ -74,6 +79,7 @@ const loginModule: Module<ILoginState, IRootState> = {
       //获取用户的menu
       const userMenu = cache.getCache('userMenu')
       if (userMenu != 'undefined') {
+        console.log('获取用户的menu')
         commit('changeUserMenu', userMenu)
       }
       //获取用户登录信息

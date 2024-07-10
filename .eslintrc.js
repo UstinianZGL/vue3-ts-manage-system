@@ -21,6 +21,7 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off',
     'vue/no-deprecated-slot-attribute': 'off',
     'vue/no-unused-vars': 'off',
-    'eslint-plugin-vue': 'off'
+    'eslint-plugin-vue': 'off',
+    'vue/multi-word-component-names': 'off'
   }
 }
