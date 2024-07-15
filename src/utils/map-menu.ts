@@ -11,16 +11,18 @@ export function mapMenusToRoutes(menus: any[]): RouteRecordRaw[] {
     allRoutes.push(route.default)
   })
   function getUserRoutes(myMenus: any[]) {
-    myMenus.forEach((item) => {
-      if (item.type == 1) {
-        getUserRoutes(item.children)
-      } else {
-        const curRoute = allRoutes.find((routeItem) => {
-          if (routeItem.path == item.url) return routeItem
-        })
-        if (curRoute != null) routes.push(curRoute)
-      }
-    })
+    if (myMenus && myMenus.length != 0) {
+      myMenus.forEach((item) => {
+        if (item.type == 1) {
+          getUserRoutes(item.children)
+        } else {
+          const curRoute = allRoutes.find((routeItem) => {
+            if (routeItem.path == item.url) return routeItem
+          })
+          if (curRoute != null) routes.push(curRoute)
+        }
+      })
+    }
   }
   getUserRoutes(menus)
   return routes
